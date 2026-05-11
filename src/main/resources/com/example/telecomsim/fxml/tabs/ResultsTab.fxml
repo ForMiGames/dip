@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/20"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.telecomsim.ui.controller.ResultsController"
+        style="-fx-padding: 16; -fx-background-color: -color-bg;">
+
+    <!-- ══════════════════ ВЕРХ: Заголовок сессии ══════════════════ -->
+    <top>
+        <VBox styleClass="card" style="-fx-margin-bottom: 16;">
+            <VBox styleClass="card-body" spacing="4">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label fx:id="labelSessionName" styleClass="section-title"
+                           HBox.hgrow="ALWAYS"/>
+                    <Button text="💾 CSV"    styleClass="btn-secondary"
+                            fx:id="buttonExportCsv"    onAction="#handleExportCsv"
+                            disable="true"/>
+                    <Button text="📄 Отчёт" styleClass="btn-secondary"
+                            fx:id="buttonExportReport" onAction="#handleExportReport"
+                            disable="true"/>
+                    <Button text="✕ Очистить" styleClass="btn-icon"
+                            fx:id="buttonClearResults" onAction="#handleClearResults"
+                            disable="true"/>
+                </HBox>
+                <Label fx:id="labelChannelInfo" styleClass="label-muted"/>
+                <Label fx:id="labelDataInfo"    styleClass="label-muted"/>
+                <Label fx:id="labelSessionTime" styleClass="label-muted"
+                       style="-fx-font-size: 11px;"/>
+                <!-- Легенда -->
+                <HBox fx:id="hboxLegend" spacing="12" style="-fx-padding: 8 0 0 0;"/>
+            </VBox>
+        </VBox>
+    </top>
+
+    <!-- ══════════════════ ЦЕНТР: Графики и таблица ══════════════════ -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background-color: transparent;">
+            <VBox spacing="16">
+
+                <!-- ── Ряд 1: Сжатие + Скорости ── -->
+                <HBox spacing="16" minHeight="300">
+
+                    <!-- График: Степень сжатия -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card-header">
+                            <Label text="Степень сжатия и экономия места"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <BarChart fx:id="chartCompressionRatio"
+                                  VBox.vgrow="ALWAYS" animated="false"
+                                  legendVisible="true" legendSide="BOTTOM">
+                            <xAxis><CategoryAxis fx:id="axisRatioX"/></xAxis>
+                            <yAxis><NumberAxis fx:id="axisRatioY" lowerBound="0"
+                                               autoRanging="true"/></yAxis>
+                        </BarChart>
+                    </VBox>
+
+                    <!-- График: Скорости -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card-header">
+                            <Label text="Скорость сжатия и распаковки"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <BarChart fx:id="chartSpeed"
+                                  VBox.vgrow="ALWAYS" animated="false"
+                                  legendVisible="true" legendSide="BOTTOM">
+                            <xAxis><CategoryAxis fx:id="axisSpeedX"/></xAxis>
+                            <yAxis><NumberAxis fx:id="axisSpeedY" lowerBound="0"
+                                               autoRanging="true"/></yAxis>
+                        </BarChart>
+                    </VBox>
+
+                </HBox>
+
+                <!-- ── Ряд 2: Передача + Канал ── -->
+                <HBox spacing="16" minHeight="280">
+
+                    <!-- График: Эффективная скорость передачи -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card-header">
+                            <Label text="Эффективная скорость передачи (с учётом канала)"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <BarChart fx:id="chartTransferRate"
+                                  VBox.vgrow="ALWAYS" animated="false"
+                                  legendVisible="true" legendSide="BOTTOM">
+                            <xAxis><CategoryAxis fx:id="axisTransferX"/></xAxis>
+                            <yAxis><NumberAxis fx:id="axisTransferY" lowerBound="0"
+                                               autoRanging="true"/></yAxis>
+                        </BarChart>
+                    </VBox>
+
+                    <!-- График: Метрики канала -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card-header">
+                            <Label text="Метрики канала (доставка / потери / задержка)"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <BarChart fx:id="chartChannel"
+                                  VBox.vgrow="ALWAYS" animated="false"
+                                  legendVisible="true" legendSide="BOTTOM">
+                            <xAxis><CategoryAxis fx:id="axisChannelX"/></xAxis>
+                            <yAxis><NumberAxis fx:id="axisChannelY" lowerBound="0"
+                                               autoRanging="true"/></yAxis>
+                        </BarChart>
+                    </VBox>
+
+                </HBox>
+
+                <!-- ── Ряд 3: Radar + Лидеры ── -->
+                <HBox spacing="16" minHeight="380">
+
+                    <!-- Radar Chart -->
+                    <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                        <VBox styleClass="card-header">
+                            <Label text="Многокритериальное сравнение (Radar)"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <StackPane fx:id="stackPaneRadar" VBox.vgrow="ALWAYS"
+                                   minHeight="300"/>
+                    </VBox>
+
+                    <!-- Лидеры по критериям -->
+                    <VBox styleClass="card" prefWidth="320" minWidth="280" spacing="0">
+                        <VBox styleClass="card-header">
+                            <Label text="Лучшие по критериям"
+                                   styleClass="card-header-title"/>
+                        </VBox>
+                        <VBox styleClass="card-body" spacing="16" VBox.vgrow="ALWAYS">
+
+                            <VBox spacing="4">
+                                <Label text="📦  Степень сжатия" styleClass="label-muted"/>
+                                <Label fx:id="labelBestCompression"
+                                       styleClass="label-success" wrapText="true"/>
+                            </VBox>
+                            <Separator/>
+                            <VBox spacing="4">
+                                <Label text="⚡  Скорость сжатия" styleClass="label-muted"/>
+                                <Label fx:id="labelBestSpeed"
+                                       styleClass="label-success" wrapText="true"/>
+                            </VBox>
+                            <Separator/>
+                            <VBox spacing="4">
+                                <Label text="🚀  Скорость передачи" styleClass="label-muted"/>
+                                <Label fx:id="labelBestTransfer"
+                                       styleClass="label-success" wrapText="true"/>
+                            </VBox>
+                            <Separator/>
+                            <VBox spacing="4">
+                                <Label text="🏆  Интегральная оценка" styleClass="label-muted"/>
+                                <Label fx:id="labelBestOverall"
+                                       styleClass="label-success" wrapText="true"/>
+                            </VBox>
+
+                        </VBox>
+                    </VBox>
+
+                </HBox>
+
+                <!-- ── Таблица: Все метрики ── -->
+                <VBox styleClass="card">
+                    <VBox styleClass="card-header">
+                        <Label text="Подробные метрики" styleClass="card-header-title"/>
+                    </VBox>
+                    <TableView fx:id="tableResults" prefHeight="240" styleClass="card-body">
+                        <columns>
+                            <TableColumn fx:id="colAlgorithm"     text="Алгоритм"        prefWidth="140"/>
+                            <TableColumn fx:id="colOriginalSize"   text="Исходный размер" prefWidth="110"/>
+                            <TableColumn fx:id="colCompressedSize" text="Сжатый размер"   prefWidth="110"/>
+                            <TableColumn fx:id="colRatio"          text="Коэф. сжатия"   prefWidth="100"/>
+                            <TableColumn fx:id="colSpaceSaving"    text="Экономия"        prefWidth="80"/>
+                            <TableColumn fx:id="colCompSpeed"      text="Сжатие (Мбит/с)"  prefWidth="120"/>
+                            <TableColumn fx:id="colDecompSpeed"    text="Распак. (Мбит/с)" prefWidth="120"/>
+                            <TableColumn fx:id="colTransferRate"   text="Передача (Мбит/с)" prefWidth="130"/>
+                            <TableColumn fx:id="colDelivery"       text="Доставка"        prefWidth="80"/>
+                            <TableColumn fx:id="colLoss"           text="Потери"          prefWidth="70"/>
+                            <TableColumn fx:id="colLatency"        text="Задержка"        prefWidth="90"/>
+                            <TableColumn fx:id="colScore"          text="Оценка"          prefWidth="80"/>
+                            <TableColumn fx:id="colIntegrity"      text="Целостность"     prefWidth="90"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- ── Выводы ── -->
+                <TitledPane fx:id="titledPaneConclusion"
+                            text="📋 Автоматический анализ и выводы"
+                            expanded="true">
+                    <TextArea fx:id="textAreaConclusion"
+                              prefHeight="240" editable="false" wrapText="true"/>
+                </TitledPane>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

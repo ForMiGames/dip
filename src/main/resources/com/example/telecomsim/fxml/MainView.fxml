@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/20"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.telecomsim.ui.controller.MainController"
+        stylesheets="@../css/app.css"
+        styleClass="app-background"
+        minWidth="1100"
+        minHeight="700"
+        prefWidth="1280"
+        prefHeight="800">
+
+    <!-- ══════════════════════════ МЕНЮ ══════════════════════════ -->
+    <top>
+        <MenuBar>
+            <Menu text="Файл">
+                <MenuItem text="Выход" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="Справка">
+                <MenuItem text="О программе" onAction="#handleAbout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <!-- ══════════════════════ ОСНОВНОЙ КОНТЕНТ ══════════════════ -->
+    <center>
+        <TabPane fx:id="tabPaneMain" tabClosingPolicy="UNAVAILABLE">
+
+            <!--
+                fx:id="setupTab"
+                → JavaFX ищет поле "setupTabController" в MainController
+                → инъектирует туда контроллер SetupTab.fxml
+            -->
+            <Tab fx:id="tabSetup" text="⚙ Настройка">
+                <fx:include fx:id="setupTab" source="tabs/SetupTab.fxml"/>
+            </Tab>
+
+            <!--
+                fx:id="runTab"
+                → поле "runTabController" в MainController
+            -->
+            <Tab fx:id="tabRun" text="▶ Выполнение">
+                <fx:include fx:id="runTab" source="tabs/RunTab.fxml"/>
+            </Tab>
+
+            <!--
+                fx:id="resultsTab"
+                → поле "resultsTabController" в MainController
+            -->
+            <Tab fx:id="tabResults" text="📊 Результаты">
+                <fx:include fx:id="resultsTab" source="tabs/ResultsTab.fxml"/>
+            </Tab>
+
+            <!--
+                fx:id="historyTab"
+                → поле "historyTabController" в MainController
+            -->
+            <Tab fx:id="tabHistory" text="🕑 История">
+                <fx:include fx:id="historyTab" source="tabs/HistoryTab.fxml"/>
+            </Tab>
+
+        </TabPane>
+    </center>
+
+    <!-- ══════════════════════ СТАТУС-БАР ════════════════════════ -->
+    <bottom>
+        <HBox styleClass="status-bar" spacing="16" alignment="CENTER_LEFT">
+            <Label fx:id="labelAppStatus" text="Готов к работе" styleClass="label-muted"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="labelVersion" styleClass="label-muted"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

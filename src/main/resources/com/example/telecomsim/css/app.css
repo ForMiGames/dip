@@ -1,0 +1,579 @@
+/* ═══════════════════════════════════════════════════════════════
+   app.css — Единые стили приложения
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Переменные ──────────────────────────────────────────────── */
+.root {
+    -fx-font-family: "Segoe UI", "Ubuntu", "System";
+    -fx-font-size: 13px;
+
+    -color-primary:       #2980b9;
+    -color-primary-dark:  #1f6391;
+    -color-success:       #27ae60;
+    -color-warning:       #f39c12;
+    -color-danger:        #e74c3c;
+    -color-info:          #3498db;
+
+    -color-bg:            #f4f6f8;
+    -color-bg-card:       #ffffff;
+    -color-border:        #dde1e7;
+    -color-border-light:  #ecf0f1;
+
+    -color-text:          #2c3e50;
+    -color-text-muted:    #7f8c8d;
+    -color-text-light:    #ffffff;
+
+    /* ── НОВОЕ: цвет текста для disabled-элементов ── */
+    -color-text-disabled: #95a5a6;
+}
+
+/* ── Общий фон ───────────────────────────────────────────────── */
+.app-background {
+    -fx-background-color: -color-bg;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   КАРТОЧКИ
+══════════════════════════════════════════════════════════════ */
+
+.card {
+    -fx-background-color: -color-bg-card;
+    -fx-background-radius: 8;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 6, 0, 0, 2);
+}
+
+.card-header {
+    -fx-background-color: -color-bg-card;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: transparent transparent -color-border-light transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12 16 12 16;
+}
+
+.card-header-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.card-body {
+    -fx-padding: 16;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   КНОПКИ
+══════════════════════════════════════════════════════════════ */
+
+.btn-primary {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: -color-text-light;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 8 20 8 20;
+}
+
+.btn-primary:hover {
+    -fx-background-color: -color-primary-dark;
+}
+
+.btn-primary:disabled {
+    -fx-opacity: 0.5;
+}
+
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-color: -color-primary;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-padding: 7 18 7 18;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: derive(-color-primary, 90%);
+}
+
+.btn-danger {
+    -fx-background-color: -color-danger;
+    -fx-text-fill: -color-text-light;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 7 16 7 16;
+}
+
+.btn-danger:hover {
+    -fx-background-color: derive(-color-danger, -15%);
+}
+
+.btn-success {
+    -fx-background-color: -color-success;
+    -fx-text-fill: -color-text-light;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 7 16 7 16;
+}
+
+.btn-icon {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-muted;
+    -fx-cursor: hand;
+    -fx-padding: 4 8 4 8;
+    -fx-background-radius: 4;
+}
+
+.btn-icon:hover {
+    -fx-background-color: -color-border-light;
+    -fx-text-fill: -color-text;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ЗАГОЛОВКИ И ТЕКСТ
+══════════════════════════════════════════════════════════════ */
+
+.section-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.label-muted {
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 12px;
+}
+
+.label-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.label-success {
+    -fx-text-fill: -color-success;
+    -fx-font-weight: bold;
+}
+
+.label-danger {
+    -fx-text-fill: -color-danger;
+    -fx-font-weight: bold;
+}
+
+.label-warning {
+    -fx-text-fill: -color-warning;
+    -fx-font-weight: bold;
+}
+
+.label-info {
+    -fx-text-fill: -color-info;
+}
+
+.validation-error {
+    -fx-text-fill: -color-danger;
+    -fx-font-size: 12px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ПОЛЯ ВВОДА
+══════════════════════════════════════════════════════════════ */
+
+.text-field,
+.combo-box,
+.spinner .text-field {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -color-border;
+    -fx-border-width: 1;
+    -fx-padding: 6 10 6 10;
+}
+
+.text-field:focused,
+.combo-box:focused,
+.spinner:focused .text-field {
+    -fx-border-color: -color-primary;
+}
+
+.text-area {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: -color-border;
+    -fx-border-width: 1;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+.text-area:focused {
+    -fx-border-color: -color-primary;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ЧЕКБОКСЫ — ИСПРАВЛЕНО
+   Проблема: текст терял цвет из-за наследования от темы JavaFX.
+   Решение: явно задаём цвет текста и все состояния.
+══════════════════════════════════════════════════════════════ */
+
+.check-box {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 13px;
+}
+
+.check-box:hover {
+    -fx-text-fill: -color-primary;
+}
+
+.check-box:disabled {
+    -fx-text-fill: -color-text-disabled;
+    -fx-opacity: 1;        /* убираем системное затемнение opacity */
+}
+
+.check-box .box {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+}
+
+.check-box:hover .box {
+    -fx-border-color: -color-primary;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -color-primary;
+    -fx-border-color: -color-primary;
+}
+
+/* Галочка внутри чекбокса */
+.check-box:selected .mark {
+    -fx-background-color: -color-text-light;
+    -fx-shape: "M 0,4 L 1.5,5.5 L 4,1 L 5.5,2.5 L 1.5,8.5 L -1.5,5.5 Z";
+}
+
+.check-box:indeterminate .box {
+    -fx-background-color: derive(-color-primary, 40%);
+    -fx-border-color: -color-primary;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   РАДИОКНОПКИ — ИСПРАВЛЕНО
+   Та же проблема, что и у CheckBox.
+══════════════════════════════════════════════════════════════ */
+
+.radio-button {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 13px;
+}
+
+.radio-button:hover {
+    -fx-text-fill: -color-primary;
+}
+
+.radio-button:disabled {
+    -fx-text-fill: -color-text-disabled;
+    -fx-opacity: 1;        /* убираем системное затемнение opacity */
+}
+
+.radio-button .radio {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+}
+
+.radio-button:hover .radio {
+    -fx-border-color: -color-primary;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-primary;
+}
+
+/* Точка внутри выбранной радиокнопки */
+.radio-button:selected .dot {
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 50%;
+    -fx-padding: 3px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   СЛАЙДЕРЫ
+══════════════════════════════════════════════════════════════ */
+
+.slider .track {
+    -fx-background-color: -color-border;
+    -fx-background-radius: 3;
+}
+
+.slider .thumb {
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 50%;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ТАБЛИЦЫ
+══════════════════════════════════════════════════════════════ */
+
+.table-view {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6;
+}
+
+.table-view .column-header {
+    -fx-background-color: -color-bg;
+    -fx-border-color: transparent transparent -color-border transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8 10 8 10;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-border-color: transparent transparent -color-border-light transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(-color-primary, 85%);
+}
+
+.table-row-cell:hover {
+    -fx-background-color: -color-bg;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ПРОГРЕСС-БАР
+══════════════════════════════════════════════════════════════ */
+
+.progress-bar {
+    -fx-background-radius: 4;
+    -fx-pref-height: 10;
+}
+
+.progress-bar .bar {
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 4;
+}
+
+.progress-bar .track {
+    -fx-background-color: -color-border;
+    -fx-background-radius: 4;
+}
+
+.progress-bar.success .bar { -fx-background-color: -color-success; }
+.progress-bar.warning .bar { -fx-background-color: -color-warning; }
+.progress-bar.danger  .bar { -fx-background-color: -color-danger;  }
+
+/* ══════════════════════════════════════════════════════════════
+   ВКЛАДКИ — ИСПРАВЛЕНО
+   Проблема: disabled-вкладки почти невидимы (opacity ~0.4).
+   Решение: задаём явный контрастный цвет для disabled.
+══════════════════════════════════════════════════════════════ */
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: transparent transparent -color-border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    /* Убираем системное затемнение для disabled — управляем цветом сами */
+    -fx-opacity: 1;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 13px;
+}
+
+/* Активная вкладка */
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -color-primary;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent -color-primary transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/*
+   Disabled-вкладка — ИСПРАВЛЕНО.
+   Используем более тёмный цвет вместо системного полупрозрачного.
+   #95a5a6 — хорошо читается, но явно отличается от активных вкладок.
+*/
+.tab-pane .tab:disabled {
+    -fx-opacity: 1;          /* отменяем системное затемнение */
+    -fx-cursor: default;
+}
+
+.tab-pane .tab:disabled .tab-label {
+    -fx-text-fill: -color-text-disabled;  /* #95a5a6 — серый, но читаемый */
+    -fx-font-weight: normal;
+}
+
+/* Hover на не-disabled вкладке */
+.tab-pane .tab:!disabled:hover .tab-label {
+    -fx-text-fill: -color-text;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   СТАТУСНАЯ СТРОКА
+══════════════════════════════════════════════════════════════ */
+
+.status-bar {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 6 16 6 16;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SEPARATOR
+══════════════════════════════════════════════════════════════ */
+
+.separator .line {
+    -fx-border-color: -color-border-light;
+    -fx-border-width: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TITLED PANE
+══════════════════════════════════════════════════════════════ */
+
+.titled-pane > .title {
+    -fx-background-color: -color-bg;
+    -fx-background-radius: 6 6 0 0;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6 6 0 0;
+    -fx-padding: 8 12 8 12;
+}
+
+.titled-pane > .title > .text {
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.titled-pane > .content {
+    -fx-border-color: -color-border;
+    -fx-border-radius: 0 0 6 6;
+    -fx-background-radius: 0 0 6 6;
+    -fx-padding: 12;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ГРАФИКИ
+══════════════════════════════════════════════════════════════ */
+
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+.chart-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.axis-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-text-muted;
+}
+
+.default-color0.chart-bar { -fx-bar-fill: #3498db; }
+.default-color1.chart-bar { -fx-bar-fill: #e74c3c; }
+.default-color2.chart-bar { -fx-bar-fill: #2ecc71; }
+.default-color3.chart-bar { -fx-bar-fill: #f39c12; }
+.default-color4.chart-bar { -fx-bar-fill: #9b59b6; }
+.default-color5.chart-bar { -fx-bar-fill: #1abc9c; }
+.default-color6.chart-bar { -fx-bar-fill: #34495e; }
+
+.default-color0.chart-series-line { -fx-stroke: #3498db; }
+.default-color1.chart-series-line { -fx-stroke: #e74c3c; }
+.default-color2.chart-series-line { -fx-stroke: #2ecc71; }
+.default-color3.chart-series-line { -fx-stroke: #f39c12; }
+.default-color4.chart-series-line { -fx-stroke: #9b59b6; }
+.default-color5.chart-series-line { -fx-stroke: #1abc9c; }
+
+/* ══════════════════════════════════════════════════════════════
+   АЛГОРИТМ-КАРТОЧКИ (RunTab)
+══════════════════════════════════════════════════════════════ */
+
+.algo-card {
+    -fx-background-color: -color-bg-card;
+    -fx-background-radius: 6;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 8 12 8 12;
+}
+
+.algo-card-running   { -fx-background-color: #fffde7; -fx-border-color: -color-warning; }
+.algo-card-completed { -fx-background-color: #f0fff4; -fx-border-color: -color-success; }
+.algo-card-best      { -fx-background-color: #e8f5e9; -fx-border-color: -color-success; -fx-border-width: 2; }
+.algo-card-error     { -fx-background-color: #fff5f5; -fx-border-color: -color-danger;  }
+
+/* ══════════════════════════════════════════════════════════════
+   ЛОГ (RunTab)
+══════════════════════════════════════════════════════════════ */
+
+.log-area {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 11px;
+    -fx-background-color: #1e272e;
+    -fx-text-fill: #dfe6e9;
+    -fx-control-inner-background: #1e272e;
+}
+
+.log-area .content {
+    -fx-background-color: #1e272e;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   СКРОЛЛБАРЫ
+══════════════════════════════════════════════════════════════ */
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -color-border;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: -color-text-muted;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}

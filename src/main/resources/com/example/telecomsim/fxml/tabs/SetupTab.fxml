@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    SetupTab.fxml
+    Контроллер: SimulationSetupController
+    Подключается в MainView.fxml через <fx:include>
+-->
+<ScrollPane
+        xmlns="http://javafx.com/javafx/20"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.telecomsim.ui.controller.SimulationSetupController"
+        fitToWidth="true"
+        hbarPolicy="NEVER"
+        style="-fx-background-color: transparent; -fx-background: transparent;">
+
+    <HBox spacing="16" style="-fx-padding: 16;">
+
+        <!-- ══════════════════ ЛЕВАЯ КОЛОНКА ══════════════════ -->
+        <VBox spacing="16" HBox.hgrow="SOMETIMES" minWidth="360" maxWidth="420">
+
+            <!-- ── Карточка: Алгоритмы ── -->
+            <VBox styleClass="card">
+                <VBox styleClass="card-header">
+                    <Label text="Алгоритмы сжатия" styleClass="card-header-title"/>
+                </VBox>
+                <VBox styleClass="card-body" spacing="10">
+                    <Label text="Выберите один или несколько алгоритмов:"
+                           styleClass="label-muted"/>
+                    <GridPane hgap="12" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <CheckBox fx:id="chkDeflate"   text="DEFLATE (GZIP)"
+                                  GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <CheckBox fx:id="chkZstandard" text="Zstandard (Zstd)"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <CheckBox fx:id="chkLZ4"       text="LZ4"
+                                  GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <CheckBox fx:id="chkSnappy"    text="Snappy (Google)"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <CheckBox fx:id="chkHuffman"   text="Хаффман"
+                                  GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <CheckBox fx:id="chkLZ77"      text="LZ77"
+                                  GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <CheckBox fx:id="chkNone"      text="Без сжатия (эталон)"
+                                  GridPane.columnIndex="0" GridPane.rowIndex="3"
+                                  GridPane.columnSpan="2"/>
+                    </GridPane>
+
+                    <!-- Ошибка валидации — скрыта до первой проверки -->
+                    <Label fx:id="lblValidationError"
+                           styleClass="validation-error"
+                           wrapText="true"
+                           visible="false" managed="false"/>
+                </VBox>
+            </VBox>
+
+            <!-- ── Карточка: Входные данные ── -->
+            <VBox styleClass="card">
+                <VBox styleClass="card-header">
+                    <Label text="Входные данные" styleClass="card-header-title"/>
+                </VBox>
+                <VBox styleClass="card-body" spacing="12">
+
+                    <!-- Тип данных -->
+                    <VBox spacing="4">
+                        <Label text="Тип данных:" styleClass="label-muted"/>
+                        <ComboBox fx:id="cmbDataType" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <!-- Размер данных -->
+                    <VBox spacing="4">
+                        <Label text="Размер данных:" styleClass="label-muted"/>
+                        <VBox spacing="6">
+                            <ComboBox fx:id="cmbDataSize" maxWidth="Infinity"/>
+                            <TextField fx:id="txtCustomSize"
+                                       visible="false" managed="false"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Выбор файла (только для REAL_FILE) -->
+                    <VBox spacing="6" visible="false" managed="false">
+                        <Button fx:id="btnSelectFile"
+                                text="📂  Выбрать файл..."
+                                styleClass="btn-secondary"
+                                maxWidth="Infinity"
+                                onAction="#handleSelectFile"
+                                visible="false" managed="false"/>
+                        <Label fx:id="lblSelectedFile"
+                               text="Файл не выбран"
+                               styleClass="label-muted"
+                               wrapText="true"
+                               visible="false" managed="false"/>
+                    </VBox>
+
+                </VBox>
+            </VBox>
+
+            <!-- ── Карточка: Параметры симуляции ── -->
+            <VBox styleClass="card">
+                <VBox styleClass="card-header">
+                    <Label text="Параметры симуляции" styleClass="card-header-title"/>
+                </VBox>
+                <VBox styleClass="card-body" spacing="12">
+
+                    <!-- Протокол -->
+                    <VBox spacing="6">
+                        <Label text="Протокол передачи:" styleClass="label-muted"/>
+                        <HBox spacing="24">
+                            <fx:define>
+                                <ToggleGroup fx:id="tglProtocol"/>
+                            </fx:define>
+                            <RadioButton fx:id="radioTcp"
+                                         text="TCP  (с подтверждением)"
+                                         toggleGroup="$tglProtocol"/>
+                            <RadioButton fx:id="radioUdp"
+                                         text="UDP  (без гарантий)"
+                                         toggleGroup="$tglProtocol"/>
+                        </HBox>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- Повторения -->
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="Количество повторений:"
+                                   styleClass="label-muted"/>
+                            <Label text="(для усреднения замеров)"
+                                   styleClass="label-muted"
+                                   style="-fx-font-size: 11px;"/>
+                        </VBox>
+                        <Spinner fx:id="spnRepetitions" prefWidth="80" editable="true"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <!-- Название -->
+                    <VBox spacing="4">
+                        <Label text="Название симуляции (необязательно):"
+                               styleClass="label-muted"/>
+                        <TextField fx:id="txtSimulationName"
+                                   promptText="Будет сгенерировано автоматически"/>
+                    </VBox>
+
+                </VBox>
+            </VBox>
+
+            <!-- ── Кнопки ── -->
+            <HBox spacing="10">
+                <Button fx:id="btnStart"
+                        text="▶   Запустить симуляцию"
+                        styleClass="btn-primary"
+                        onAction="#handleStartSimulation"
+                        maxWidth="Infinity"
+                        HBox.hgrow="ALWAYS"
+                        disable="true"/>
+                <Button text="↺  Сброс"
+                        styleClass="btn-secondary"
+                        onAction="#handleResetSettings"/>
+            </HBox>
+
+        </VBox>
+
+        <!-- ══════════════════ ПРАВАЯ КОЛОНКА ══════════════════ -->
+        <VBox spacing="16" HBox.hgrow="ALWAYS">
+
+            <!-- ── Карточка: Пресеты ── -->
+            <VBox styleClass="card">
+                <VBox styleClass="card-header">
+                    <Label text="Канал связи" styleClass="card-header-title"/>
+                </VBox>
+                <VBox styleClass="card-body" spacing="12">
+                    <VBox spacing="4">
+                        <Label text="Быстрый выбор (пресет):"
+                               styleClass="label-muted"/>
+                        <ComboBox fx:id="cmbPreset" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="Тип среды передачи:"
+                               styleClass="label-muted"/>
+                        <ComboBox fx:id="cmbChannelType" maxWidth="Infinity"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- ── Карточка: Параметры канала ── -->
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card-header">
+                    <Label text="Параметры канала" styleClass="card-header-title"/>
+                </VBox>
+                <VBox styleClass="card-body" spacing="14">
+
+                    <!-- Пропускная способность -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Пропускная способность"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblBandwidthValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldBandwidth"/>
+                    </VBox>
+
+                    <!-- Задержка -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Базовая задержка"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblLatencyValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldLatency"/>
+                    </VBox>
+
+                    <!-- Джиттер -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Джиттер ±"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblJitterValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldJitter"/>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- BER -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Коэффициент битовых ошибок (BER)"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblBerValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldBer"/>
+                        <HBox>
+                            <Label text="← Хуже" styleClass="label-muted"
+                                   style="-fx-font-size: 10px;"/>
+                            <Pane HBox.hgrow="ALWAYS"/>
+                            <Label text="Лучше →" styleClass="label-muted"
+                                   style="-fx-font-size: 10px;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Потеря пакетов -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Потеря пакетов"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblPacketLossValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldPacketLoss"/>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- MTU + Расстояние -->
+                    <GridPane hgap="16" vgap="0">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0">
+                            <Label text="MTU (байт):" styleClass="label-muted"/>
+                            <TextField fx:id="txtMtu" promptText="1500"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1">
+                            <Label text="Расстояние (км):" styleClass="label-muted"/>
+                            <TextField fx:id="txtDistance" promptText="0.0"/>
+                        </VBox>
+                    </GridPane>
+
+                    <!-- SNR -->
+                    <VBox spacing="4">
+                        <HBox>
+                            <Label text="Отношение сигнал/шум (SNR)"
+                                   styleClass="label-muted" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblSnrValue" styleClass="label-value"/>
+                        </HBox>
+                        <Slider fx:id="sldSnr"/>
+                    </VBox>
+
+                </VBox>
+            </VBox>
+
+        </VBox>
+    </HBox>
+</ScrollPane>

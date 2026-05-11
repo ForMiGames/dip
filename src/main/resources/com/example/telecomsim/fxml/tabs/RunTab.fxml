@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/20"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.telecomsim.ui.controller.SimulationRunController"
+        style="-fx-padding: 16; -fx-background-color: -color-bg;">
+
+    <!-- ══════════════════ ВЕРХ: Прогресс ══════════════════ -->
+    <top>
+        <VBox styleClass="card" style="-fx-margin-bottom: 16;">
+            <VBox styleClass="card-header">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Выполнение симуляции" styleClass="card-header-title"
+                           HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="labelElapsedTime"   styleClass="label-muted"/>
+                    <Label text="/"                   styleClass="label-muted"/>
+                    <Label fx:id="labelEstimatedTime" styleClass="label-muted"/>
+                    <Button fx:id="buttonCancel" text="Отменить"
+                            styleClass="btn-danger" onAction="#handleCancelButtonClick"/>
+                </HBox>
+            </VBox>
+            <VBox styleClass="card-body" spacing="8">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <ProgressBar fx:id="progressBarOverall" maxWidth="Infinity"
+                                 HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="labelProgressPercent" text="0%"
+                           styleClass="label-value" minWidth="40"/>
+                </HBox>
+                <Label fx:id="labelCurrentStep" text="Ожидание запуска..."
+                       styleClass="label-muted"/>
+            </VBox>
+        </VBox>
+    </top>
+
+    <!-- ══════════════════ ЦЕНТР: Статусы + Лог ══════════════════ -->
+    <center>
+        <HBox spacing="16" style="-fx-padding: 16 0 0 0;">
+
+            <!-- Левая часть: статусы алгоритмов -->
+            <VBox styleClass="card" prefWidth="340" minWidth="280">
+                <VBox styleClass="card-header">
+                    <Label text="Алгоритмы" styleClass="card-header-title"/>
+                </VBox>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background-color: transparent;">
+                    <VBox fx:id="vboxAlgorithmStatuses" styleClass="card-body" spacing="8"/>
+                </ScrollPane>
+
+                <!-- Предварительные результаты -->
+                <Separator fx:id="separatorPartialResults" managed="false" visible="false"/>
+                <VBox styleClass="card-body" spacing="6">
+                    <Label fx:id="labelPartialResultsHeader"
+                           text="Предварительные результаты"
+                           styleClass="section-title"
+                           managed="false" visible="false"/>
+                    <VBox fx:id="vboxPartialResults" spacing="4"/>
+                </VBox>
+            </VBox>
+
+            <!-- Правая часть: лог -->
+            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                <VBox styleClass="card-header">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Лог событий" styleClass="card-header-title"
+                               HBox.hgrow="ALWAYS"/>
+                        <Button text="Очистить" styleClass="btn-icon"
+                                onAction="#handleClearLog"/>
+                    </HBox>
+                </VBox>
+                <TextArea fx:id="textAreaLog" VBox.vgrow="ALWAYS"
+                          styleClass="log-area"
+                          editable="false" wrapText="false"/>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>

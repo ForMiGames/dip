@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/20"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.telecomsim.ui.controller.HistoryController"
+        style="-fx-padding: 16; -fx-background-color: -color-bg;">
+
+    <!-- ══════════════════ ВЕРХ: Фильтры ══════════════════ -->
+    <top>
+        <VBox styleClass="card" style="-fx-margin-bottom: 16;">
+            <VBox styleClass="card-body" spacing="0">
+                <HBox spacing="12" alignment="CENTER_LEFT">
+
+                    <!-- Поиск -->
+                    <TextField fx:id="fieldSearch"
+                               promptText="🔍  Поиск по названию или алгоритму..."
+                               prefWidth="280" HBox.hgrow="SOMETIMES"/>
+
+                    <!-- Фильтр по каналу -->
+                    <ComboBox fx:id="comboFilterChannel" prefWidth="200"/>
+
+                    <!-- Фильтр по алгоритму -->
+                    <ComboBox fx:id="comboFilterAlgorithm" prefWidth="180"/>
+
+                    <Button text="✕ Сбросить" styleClass="btn-icon"
+                            fx:id="buttonClearFilters" onAction="#handleClearFilters"/>
+
+                    <Pane HBox.hgrow="ALWAYS"/>
+
+                    <!-- Счётчик -->
+                    <Label fx:id="labelTotalSessions" styleClass="label-muted"/>
+
+                </HBox>
+            </VBox>
+        </VBox>
+    </top>
+
+    <!-- ══════════════════ ЦЕНТР: Таблица + Детали ══════════════════ -->
+    <center>
+        <VBox spacing="16">
+
+            <!-- ── Таблица истории ── -->
+            <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                <VBox styleClass="card-header">
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="История симуляций" styleClass="card-header-title"
+                               HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="buttonViewDetails"  text="👁 Открыть"
+                                styleClass="btn-secondary"
+                                onAction="#handleViewDetails" disable="true"/>
+                        <Button fx:id="buttonRerun"        text="▶ Повторить"
+                                styleClass="btn-primary"
+                                onAction="#handleRerun"      disable="true"/>
+                        <Button fx:id="buttonDeleteSelected" text="🗑 Удалить"
+                                styleClass="btn-danger"
+                                onAction="#handleDeleteSelected" disable="true"/>
+                        <Button fx:id="buttonExportCsv"    text="💾 CSV"
+                                styleClass="btn-secondary"
+                                onAction="#handleExportCsv"/>
+                        <Button fx:id="buttonClearHistory" text="✕ Очистить всё"
+                                styleClass="btn-icon"
+                                onAction="#handleClearHistory"/>
+                    </HBox>
+                </VBox>
+
+                <TableView fx:id="tableHistory" VBox.vgrow="ALWAYS" prefHeight="320">
+                    <columns>
+                        <TableColumn fx:id="colDate"         text="Дата и время"   prefWidth="140"/>
+                        <TableColumn fx:id="colName"         text="Название"        prefWidth="200"/>
+                        <TableColumn fx:id="colChannel"      text="Канал"           prefWidth="160"/>
+                        <TableColumn fx:id="colAlgorithms"   text="Алгоритмы"      prefWidth="220"/>
+                        <TableColumn fx:id="colDataType"     text="Тип данных"     prefWidth="120"/>
+                        <TableColumn fx:id="colDataSize"     text="Размер"          prefWidth="80"/>
+                        <TableColumn fx:id="colDuration"     text="Длительность"   prefWidth="100"/>
+                        <TableColumn fx:id="colBestAlgorithm" text="🏆 Лучший"     prefWidth="140"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- ── Детали выбранной сессии ── -->
+            <TitledPane fx:id="titledPaneDetails"
+                        text="Детали сессии" expanded="false">
+                <TableView fx:id="tableDetails" prefHeight="200">
+                    <columns>
+                        <TableColumn fx:id="colDetailAlgorithm"   text="Алгоритм"           prefWidth="140"/>
+                        <TableColumn fx:id="colDetailRatio"        text="Коэф. сжатия"      prefWidth="110"/>
+                        <TableColumn fx:id="colDetailCompSpeed"    text="Сжатие (Мбит/с)"   prefWidth="120"/>
+                        <TableColumn fx:id="colDetailDecompSpeed"  text="Распак. (Мбит/с)"  prefWidth="120"/>
+                        <TableColumn fx:id="colDetailTransferRate" text="Передача (Мбит/с)" prefWidth="130"/>
+                        <TableColumn fx:id="colDetailDelivery"     text="Доставка (%)"      prefWidth="100"/>
+                        <TableColumn fx:id="colDetailScore"        text="Оценка"            prefWidth="90"/>
+                        <TableColumn fx:id="colDetailIntegrity"    text="Целостность"       prefWidth="90"/>
+                    </columns>
+                </TableView>
+            </TitledPane>
+
+        </VBox>
+    </center>
+
+    <!-- ══════════════════ НИЗ: Статус ══════════════════ -->
+    <bottom>
+        <HBox styleClass="status-bar" style="-fx-margin-top: 8;">
+            <Label fx:id="labelStatusMessage" styleClass="label-muted"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
